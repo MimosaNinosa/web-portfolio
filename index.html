@@ -22,7 +22,7 @@
       <li><a class="nav-link" href="projects.html">Projects</a></li>
       <li><a class="nav-link" href="#contact">Contact</a></li>
     </ul>
-    <div class="status-pill"><span class="status-dot"></span>OPEN TO OPPORTUNITIES</div>
+    <div class="status-pill"><span class="status-dot"></span><span id="statusText">OPEN TO OPPORTUNITIES</span></div>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">MENU</button>
   </div>
 </nav>
@@ -34,19 +34,8 @@
       <span class="line">$ verifying trust boundary <span class="ok">[OK]</span></span>
       <span class="line">$ loading profile → cybersecurity_engineer.json</span>
     </div>
-    <p class="eyebrow">Singapore · SUTD × Tampere University</p>
-    <h1>Lee Chun Yong</h1>
-    <p class="role">Cybersecurity Engineer — Trusted Execution &amp; Applied Cryptography</p>
-    <p class="lede">
-      I build systems that keep data private even while it's being computed on —
-      from a TEE-backed biometric pipeline at Singapore's HTX, to a homelab wired
-      end-to-end with WireGuard, nftables, and encrypted backups.
-    </p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="projects.html">View project log →</a>
-      <a class="btn" href="assets/Lee_ChunYong_Resume_Cyber.pdf" target="_blank" rel="noopener">Download résumé (PDF)</a>
-      <a class="btn" href="mailto:1008108@mymail.sutd.edu.sg">Get in touch</a>
-    </div>
+    <!-- Rendered by js/render-site.js from js/site-data.js -->
+    <div id="heroContent"></div>
   </div>
 </header>
 
@@ -56,32 +45,7 @@
       <p class="eyebrow">01 — Profile</p>
       <h2>About</h2>
     </div>
-    <div class="about-grid">
-      <div class="boundary">
-        <span class="boundary-tag">SEC::CLEARANCE_PROFILE</span>
-        <p>
-          Cybersecurity-focused engineer with hands-on experience across digital forensics,
-          secure systems design, and applied cryptography. My background spans offensive
-          security tooling, defensive programming, and privacy-preserving technologies —
-          particularly Trusted Execution Environments (TEE) and Fully Homomorphic Encryption
-          (FHE) — alongside AI safety evaluation work.
-        </p>
-        <p>
-          Currently reading a BSc in Design &amp; Artificial Intelligence at SUTD, on exchange
-          at Tampere University, Finland, and interning with HTX's Biometrics and Profiling
-          department, where I work on hardening biometric data against insider threats and
-          inference attacks.
-        </p>
-      </div>
-      <ul class="fact-list">
-        <li><span class="k">Based in</span><span class="v">Singapore</span></li>
-        <li><span class="k">Currently</span><span class="v">HTX, Biometrics &amp; Profiling</span></li>
-        <li><span class="k">Exchange</span><span class="v">Tampere University, FI</span></li>
-        <li><span class="k">Focus</span><span class="v">TEE / FHE / Applied Crypto</span></li>
-        <li><span class="k">Daily driver</span><span class="v">Arch Linux + Hyprland</span></li>
-        <li><span class="k">Contact</span><span class="v">91198286</span></li>
-      </ul>
-    </div>
+    <div id="aboutContent"><!-- rendered from site-data.js --></div>
   </div>
 </section>
 
@@ -91,48 +55,7 @@
       <p class="eyebrow">02 — Audit Trail</p>
       <h2>Experience</h2>
     </div>
-    <div class="timeline">
-
-      <div class="timeline-entry">
-        <div class="timeline-meta">
-          <span class="timeline-role">Cybersecurity Intern — Biometrics &amp; Profiling</span>
-          <span class="timeline-date">2025 — Present</span>
-        </div>
-        <div class="timeline-org">HTX (Home Team Science and Technology Agency), Singapore</div>
-        <ul>
-          <li>Implementing Trusted Execution Environments (TEE) and Fully Homomorphic Encryption (FHE) to enable privacy-preserving biometric processing, keeping data encrypted through computation.</li>
-          <li>Researching practical TEE+FHE deployment to harden biometric systems against insider threats and inference attacks.</li>
-          <li>Contributing to defensive architecture for biometric profiling systems in a government security context.</li>
-        </ul>
-      </div>
-
-      <div class="timeline-entry">
-        <div class="timeline-meta">
-          <span class="timeline-role">AI Engineering Intern</span>
-          <span class="timeline-date">Nov — Dec 2025</span>
-        </div>
-        <div class="timeline-org">Pettichat (AI Startup), Hangzhou, China</div>
-        <ul>
-          <li>Built an end-to-end LLM evaluation pipeline benchmarking model outputs on accuracy, consistency, and safety.</li>
-          <li>Investigated how system prompt design shapes LLM behaviour, informing safer deployment practices.</li>
-          <li>Documented evaluation methodology and produced internal guidelines for responsible AI usage.</li>
-        </ul>
-      </div>
-
-      <div class="timeline-entry">
-        <div class="timeline-meta">
-          <span class="timeline-role">Cyber Advisory Intern</span>
-          <span class="timeline-date">Jul 2020 — Feb 2021</span>
-        </div>
-        <div class="timeline-org">KPMG Singapore</div>
-        <ul>
-          <li>Built a Linux triage script from scratch (Bash/Python) for automated forensic collection during incident response, feeding real-time dashboards via Elasticsearch.</li>
-          <li>Conducted malware sandbox analysis and authored internal threat intelligence documentation.</li>
-          <li>Configured and tested tooling across Ubuntu, RHEL, CentOS, and Debian for client-specific requirements.</li>
-        </ul>
-      </div>
-
-    </div>
+    <div class="timeline" id="experienceList"><!-- rendered from site-data.js --></div>
   </div>
 </section>
 
@@ -142,29 +65,7 @@
       <p class="eyebrow">03 — Provenance</p>
       <h2>Education</h2>
     </div>
-    <div class="timeline">
-      <div class="timeline-entry">
-        <div class="timeline-meta">
-          <span class="timeline-role">BSc, Design and Artificial Intelligence</span>
-          <span class="timeline-date">2023 — Present</span>
-        </div>
-        <div class="timeline-org">Singapore University of Technology and Design (SUTD) · GPA 4.08</div>
-      </div>
-      <div class="timeline-entry">
-        <div class="timeline-meta">
-          <span class="timeline-role">Exchange — Secure Programming, Wireless Networking, IoT, Functional Programming</span>
-          <span class="timeline-date">Dec 2025 — Jul 2026</span>
-        </div>
-        <div class="timeline-org">Tampere University, Finland</div>
-      </div>
-      <div class="timeline-entry">
-        <div class="timeline-meta">
-          <span class="timeline-role">Diploma in Cybersecurity and Digital Forensics</span>
-          <span class="timeline-date">2018 — 2021</span>
-        </div>
-        <div class="timeline-org">Temasek Polytechnic · GPA 3.75</div>
-      </div>
-    </div>
+    <div class="timeline" id="educationList"><!-- rendered from site-data.js --></div>
   </div>
 </section>
 
@@ -174,44 +75,7 @@
       <p class="eyebrow">04 — Scan Results</p>
       <h2>Skills</h2>
     </div>
-    <div class="skill-groups">
-      <div class="skill-group">
-        <h3>Security &amp; Forensics</h3>
-        <div class="chip-row">
-          <span class="chip">TEE</span><span class="chip">FHE</span><span class="chip">AES-256</span>
-          <span class="chip">Argon2 / bcrypt</span><span class="chip">Digital Forensics</span>
-          <span class="chip">Incident Response</span><span class="chip">Malware Analysis</span>
-          <span class="chip">Secure Programming</span><span class="chip">Penetration Testing</span>
-          <span class="chip">Network Security</span><span class="chip">IAB / 5G</span>
-          <span class="chip">Threat Modeling</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <h3>Languages</h3>
-        <div class="chip-row">
-          <span class="chip">Python</span><span class="chip">Bash</span><span class="chip">JavaScript</span>
-          <span class="chip">C++</span><span class="chip">Haskell</span><span class="chip">HTML/CSS</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <h3>Tools &amp; Platforms</h3>
-        <div class="chip-row">
-          <span class="chip">Docker</span><span class="chip">Git / GitHub Actions</span>
-          <span class="chip">Elasticsearch / Kibana</span><span class="chip">WireGuard</span>
-          <span class="chip">Linux (Arch/Ubuntu/RHEL/Debian)</span><span class="chip">React</span>
-          <span class="chip">Arduino</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <h3>AI / ML</h3>
-        <div class="chip-row">
-          <span class="chip">LLM Evaluation</span><span class="chip">Prompt Engineering</span>
-          <span class="chip">OpenAI API</span><span class="chip">TensorFlow</span>
-          <span class="chip">Scikit-learn</span><span class="chip">GANs</span>
-          <span class="chip">Model Safety Assessment</span>
-        </div>
-      </div>
-    </div>
+    <div class="skill-groups" id="skillsGrid"><!-- rendered from site-data.js --></div>
   </div>
 </section>
 
@@ -221,26 +85,7 @@
       <p class="eyebrow">05 — Highlights</p>
       <h2>From the project log</h2>
     </div>
-    <div class="teaser-grid">
-      <div class="teaser-card">
-        <div class="teaser-tag">PROJ::0x01</div>
-        <h3>Secure Password Manager</h3>
-        <p>AES-256 + Argon2/bcrypt credential storage, with a CI/CD pipeline running automated vulnerability testing on every contribution.</p>
-        <a class="teaser-link" href="projects.html">See case file →</a>
-      </div>
-      <div class="teaser-card">
-        <div class="teaser-tag">PROJ::0x02</div>
-        <h3>Home Server &amp; Security Infrastructure</h3>
-        <p>Self-hosted Debian server: WireGuard, Pi-hole, nftables, reverse proxy with SSL, and automated offsite backups.</p>
-        <a class="teaser-link" href="projects.html">See case file →</a>
-      </div>
-      <div class="teaser-card">
-        <div class="teaser-tag">PROJ::0x03</div>
-        <h3>Forensic Triage &amp; Visualisation Tool</h3>
-        <p>Cross-distro incident-response triage script feeding Elasticsearch + Kibana dashboards. Built solo at KPMG.</p>
-        <a class="teaser-link" href="projects.html">See case file →</a>
-      </div>
-    </div>
+    <div class="teaser-grid" id="featuredGrid"><!-- rendered from js/projects-data.js, first N entries --></div>
   </div>
 </section>
 
@@ -250,14 +95,7 @@
       <p class="eyebrow">06 — Reach</p>
       <h2>Contact</h2>
     </div>
-    <div class="boundary">
-      <span class="boundary-tag">SYS::OUTBOUND_CHANNELS</span>
-      <div class="contact-block">
-        <div class="contact-row"><span class="k">Email</span><a href="mailto:1008108@mymail.sutd.edu.sg">1008108@mymail.sutd.edu.sg</a></div>
-        <div class="contact-row"><span class="k">Phone</span><span>+65 9119 8286</span></div>
-        <div class="contact-row"><span class="k">LinkedIn</span><a href="https://linkedin.com/in/leechunyong" target="_blank" rel="noopener">linkedin.com/in/leechunyong</a></div>
-      </div>
-    </div>
+    <div id="contactContent"><!-- rendered from site-data.js --></div>
   </div>
 </section>
 
@@ -266,6 +104,9 @@
   <span>Last audited: Aug 2026</span>
 </footer>
 
+<script src="js/projects-data.js"></script>
+<script src="js/site-data.js"></script>
+<script src="js/render-site.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

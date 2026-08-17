@@ -30,17 +30,41 @@ add a `CNAME` file with that subdomain, point a DNS `CNAME` record at
 `<your-username>.github.io`, and set it in Settings → Pages. Everything else
 in this repo stays the same — the projects page doesn't need to move.
 
-## Adding a new project
+## Updating the site
 
-Open `js/projects-data.js`. Copy one object from the `PROJECTS` array,
-paste it back in, fill in the fields, save. `projects.html` re-renders
-itself automatically — no HTML editing needed. Field guide is in the
-comment at the top of that file.
+Everything you'd normally want to change lives in two plain data files.
+You never need to touch the HTML.
 
-## Updating your résumé link
+### Homepage — `js/site-data.js`
+One `SITE` object with your name, tagline, status pill, about text,
+experience, education, skills, and contact info. Edit a value, save,
+refresh the page. Comments at the top of each section explain the shape.
 
+- **Change your status** (e.g. stop showing "open to opportunities"):
+  edit `SITE.profile.status`.
+- **Add a job**: copy an object in `SITE.experience`, fill it in. Most
+  recent entry goes first — the list renders top to bottom.
+- **Add a skill**: find the right group in `SITE.skills` and add a string
+  to its `items` array, or copy a whole group for a new category.
+
+### Projects — `js/projects-data.js`
+One `PROJECTS` array, same pattern. Copy an object, fill in the fields,
+save. `projects.html` re-renders itself automatically.
+
+The homepage's "From the project log" teaser section pulls its 3 cards
+directly from this same array (`SITE.featuredCount` controls how many) —
+so a new project you add here shows up on the homepage too, with nothing
+to duplicate or keep in sync by hand.
+
+### Updating your résumé
 Replace `assets/Lee_ChunYong_Resume_Cyber.pdf` with a newer export using
-the same filename, or update the `href` in the hero section of `index.html`.
+the exact same filename — the download link updates itself.
+
+### If you ever do need to touch layout or styling
+`index.html` and `projects.html` are now just empty containers with ids
+(`heroContent`, `experienceList`, `skillsGrid`, etc.) — `js/render-site.js`
+and `js/render-projects.js` fill them in from the data files at page load.
+Colors, spacing, and type live in `css/style.css`.
 
 ## Structure
 ```
@@ -50,7 +74,9 @@ portfolio/
 ├── css/style.css
 ├── js/
 │   ├── main.js              # nav toggle + scroll-spy
-│   ├── projects-data.js      # ← edit this to add projects
+│   ├── site-data.js          # ← edit this: homepage content
+│   ├── render-site.js        # renders site-data.js into index.html
+│   ├── projects-data.js      # ← edit this: project entries
 │   └── render-projects.js    # renders projects-data.js into cards
 ├── assets/
 │   └── Lee_ChunYong_Resume_Cyber.pdf
