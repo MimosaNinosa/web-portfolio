@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Lee Chun Yong</title>
+<meta name="description" content="Notes on security, systems, and applied cryptography by Lee Chun Yong.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-id"><a href="index.html" style="color:inherit;text-decoration:none;">LEE_CHUN_YONG<span>.sys</span></a></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a class="nav-link" href="index.html#about">About</a></li>
+      <li><a class="nav-link" href="index.html#experience">Experience</a></li>
+      <li><a class="nav-link" href="index.html#skills">Skills</a></li>
+      <li><a class="nav-link" href="projects.html">Projects</a></li>
+      <li><a class="nav-link active" href="blog.html">Blog</a></li>
+      <li><a class="nav-link" href="index.html#contact">Contact</a></li>
+    </ul>
+    <div class="status-pill"><span class="status-dot"></span>OPEN TO OPPORTUNITIES</div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">MENU</button>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="wrap">
+    <p class="eyebrow">BLOG::LOG</p>
+    <h1>Blog</h1>
+    <p>Notes on whatever I'm building or reading into — mostly security, systems, and applied cryptography.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="project-log" id="blogLog">
+    <!-- Posts are rendered here from js/blog-data.js -->
+  </div>
+</main>
+
+<footer class="wrap">
+  <span>© 2026 Lee Chun Yong. Built for GitHub Pages.</span>
+  <span><a href="index.html">← Back to profile</a></span>
+</footer>
+
+<script src="js/blog-data.js"></script>
+<script src="js/render-blog.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
