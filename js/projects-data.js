@@ -28,7 +28,7 @@ const PROJECTS = [
     summary: "A credential manager built around OWASP-recommended encryption and hashing for data at rest.",
     bullets: [
       "Applied AES-256 for encryption and Argon2/bcrypt for password hashing, following OWASP guidance throughout.",
-      "Wired up a GitHub Actions CI/CD pipeline for automated vulnerability testing and static analysis on every contribution."
+      "Wired up a GitHub Actions CI/CD pipeline using Bandit for automated vulnerability testing and static analysis on every contribution."
     ],
     links: {}
   },
@@ -97,6 +97,25 @@ const PROJECTS = [
       "Built an AI chatbot to support post-handover code maintenance."
     ],
     links: {}
+  },
+  {
+    id: "0x07",
+    title: "The Future of EV Charging",
+    period: "2025",
+    role: "SUTD Product Design Studio - team technical lead, 5 people",
+    tags: ["C++", "ESP32", "Motors", "Actuators", "Robotics"],
+    summary: `Reimagined and redesigned an autonomous EV charger that is designed with Singapore's carpark layout and size limitation in mind.
+      \nProviding hands free, on-demand charging, reducing down time between cars and increase effective EV charger coverage.`,
+    bullets: [
+      "Played the role as the team's main coordiantor providing insights and directions to achieve the end results.",
+      "Created a life-sized working prototype using ESP32, motors, actuators and 3D prints.",
+      "Rendered a full advertisment-like project demostration designed in blender.",
+      "Exceed the expectation set by the team and the professors."
+    ],
+    video: "assets/projects/FullRender_EVAMInterior.mp4",
+    links: {
+      report: "assets/projects/EVAM Interior team report.pdf"
+    }
   }
 
   /* ---- add new projects below this line ----
