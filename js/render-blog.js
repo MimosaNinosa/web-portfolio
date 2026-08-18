@@ -9,42 +9,43 @@ function renderPost(post) {
     .map(t => `<span class="chip">${escapeHtml(t)}</span>`)
     .join('');
 
-  const bullets = (project.bullets || [])
-    .map(b => `<li>${escapeHtml(b)}</li>`)
+  const body = (post.body || [])
+    .map(p => `<p>${escapeHtml(p)}</p>`)
     .join('');
-
-  const links = [];
-  if (project.links?.repo) links.push(`<a href="${project.links.repo}" target="_blank" rel="noopener">Repo →</a>`);
-  if (project.links?.demo) links.push(`<a href="${project.links.demo}" target="_blank" rel="noopener">Live demo →</a>`);
 
   return `
     <article class="case-file">
       <div class="case-head">
-        <span class="case-id mono">PROJ::${escapeHtml(project.id)}</span>
-        <span class="case-date mono">${escapeHtml(project.period)}</span>
+        <span class="case-id mono">POST::${escapeHtml(post.id)}</span>
+        <span class="case-date mono">${escapeHtml(post.date)}${post.readTime ? ` · ${escapeHtml(post.readTime)}` : ''}</span>
       </div>
-      <h2>${escapeHtml(project.title)}</h2>
-      <div class="case-role">${escapeHtml(project.role)}</div>
-      <p class="summary">${escapeHtml(project.summary)}</p>
-      ${bullets ? `<ul>${bullets}</ul>` : ''}
-      <div class="chip-row" style="margin-bottom:14px;">${tags}</div>
-      ${links.length ? `<div class="case-links">${links.join('')}</div>` : ''}
+      <h2>${escapeHtml(post.title)}</h2>
+      <div class="post-body">${body}</div>
+      <div class="chip-row">${tags}</div>
     </article>
   `;
 }
 
-function renderProjectLog() {
+function renderBlog() {
   const container = document.getElementById('blogLog');
   if (!container || typeof POSTS === 'undefined') return;
 
-  container.innerHTML = POSTS.map(renderCaseFile).join('');
+  if (!POSTS.length) {
+    container.innerHTML = `
+      <div class="empty-slot">
+        No posts yet — add one in js/blog-data.js.
+      </div>
+    `;
+    return;
+  }
 
-  // Template hint — remove this block once you've added a couple of your own entries
+  container.innerHTML = POSTS.map(renderPost).join('');
+
   container.insertAdjacentHTML('beforeend', `
     <div class="empty-slot">
-      + next entry goes in js/projects-data.js — copy an object, fill it in, save.
+      + next post goes in js/blog-data.js — copy an object, fill it in, save.
     </div>
   `);
 }
 
-renderProjectLog();
+renderBlog();
