@@ -18,7 +18,7 @@ const SITE = {
     phone: "+65 9119 8286",
     linkedin: "https://linkedin.com/in/leechunyong",
     linkedinLabel: "linkedin.com/in/leechunyong",
-    resumeFile: "assets/Lee_ChunYong_Resume_Cyber.pdf"
+    resumeFile: "https://assets.chunyong.cc/Lee_ChunYong_Resume_Cyber.pdf"
   },
 
   about: {
