@@ -13,7 +13,7 @@ const SITE = {
     roleTag: "Cybersecurity Engineer — Trusted Execution & Applied Cryptography",
     location: "Singapore · SUTD × Tampere University",
     status: "OPEN TO OPPORTUNITIES",     // shown as the pulsing status pill
-    tagline: "I build systems that keep data private even while it's being computed on — from a TEE-backed biometric pipeline at Singapore's HTX, to a homelab wired end-to-end with WireGuard, nftables, and encrypted backups.",
+    tagline: "I build systems that keep data private even while it's being computed on from a TEE-backed biometric pipeline at Singapore's HTX, to a homelab wired end-to-end with WireGuard, nftables, and encrypted backups.",
     email: "1008108@mymail.sutd.edu.sg",
     phone: "+65 9119 8286",
     linkedin: "https://linkedin.com/in/leechunyong",
@@ -24,7 +24,7 @@ const SITE = {
   about: {
     paragraphs: [
       "Cybersecurity-focused engineer with hands-on experience across digital forensics, secure systems design, and applied cryptography. My background spans offensive security tooling, defensive programming, and privacy-preserving technologies — particularly Trusted Execution Environments (TEE) and Fully Homomorphic Encryption (FHE) — alongside AI safety evaluation work.",
-      "Currently reading a BSc in Design & Artificial Intelligence at SUTD, on exchange at Tampere University, Finland, and interning with HTX's Biometrics and Profiling department, where I work on hardening biometric data against insider threats and inference attacks."
+      "Currently reading a BSc in Design & Artificial Intelligence at SUTD, with an exchange at Tampere University, Finland, and interning with HTX's Biometrics and Profiling department, where I work on hardening biometric data against insider threats and inference attacks."
     ],
     facts: [
       { k: "Based in", v: "Singapore" },
@@ -45,7 +45,8 @@ const SITE = {
       bullets: [
         "Implementing Trusted Execution Environments (TEE) and Fully Homomorphic Encryption (FHE) to enable privacy-preserving biometric processing, keeping data encrypted through computation.",
         "Researching practical TEE+FHE deployment to harden biometric systems against insider threats and inference attacks.",
-        "Contributing to defensive architecture for biometric profiling systems in a government security context."
+        "Contributing to defensive architecture for biometric profiling systems in a government security context.",
+        "Evaluating the effectiveness of TEE and FHE for biometrics security compared to just TEE deployments."
       ]
     },
     {
