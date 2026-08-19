@@ -112,7 +112,7 @@ const PROJECTS = [
       "Rendered a full advertisment-like project demostration designed in blender.",
       "Exceed the expectation set by the team and the professors."
     ],
-    video: "assets/projects/FullRender_EVAMInterior.mp4",
+    video: "https://assets.chunyong.cc/f/7b4c248b5c6f4cc883cc/",
     links: {
       report: "assets/projects/EVAM Interior team report.pdf"
     }
