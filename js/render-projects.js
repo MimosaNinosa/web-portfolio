@@ -4,6 +4,16 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
+function findProject() {
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get('slug');
+  const id = params.get('id');
+  if (!slug && !id) return null;
+
+  return PROJECTS.find(p => (slug && p.slug === slug) || (id && p.id === id)) || null;
+}
+
+
 function renderCaseFile(project) {
   const tags = (project.tags || [])
     .map(t => `<span class="chip">${escapeHtml(t)}</span>`)
