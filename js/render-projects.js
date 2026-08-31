@@ -13,6 +13,15 @@ function findProject() {
   return PROJECTS.find(p => (slug && p.slug === slug) || (id && p.id === id)) || null;
 }
 
+function renderNotFound(container) {
+  container.innerHTML = `
+    <div class="empty-slot">
+      Couldn't find that project — it may have been renamed or removed.
+      <br><a href="projects.html">← Back to the full project log</a>
+    </div>
+  `;
+}
+
 
 function renderCaseFile(project) {
   const tags = (project.tags || [])
