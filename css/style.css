@@ -292,6 +292,9 @@ h1, h2, h3 {
   text-transform: uppercase;
 }
 
+.boundary p { margin: 0 0 14px; }
+.boundary p:last-child { margin-bottom: 0; }
+
 /* ---------- Sections ---------- */
 
 section { padding: 72px 0; border-bottom: 1px solid var(--border); }
@@ -392,11 +395,19 @@ section:last-of-type { border-bottom: none; }
 .teaser-card {
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 20px;
+  overflow: hidden;
   background: var(--bg-panel);
   transition: border-color 0.15s ease, transform 0.15s ease;
 }
 .teaser-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.teaser-thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-bottom: 1px solid var(--border);
+}
+.teaser-card .teaser-body { padding: 20px; }
 .teaser-tag { font-family: var(--font-mono); font-size: 0.68rem; color: var(--accent-2); letter-spacing: 0.08em; }
 .teaser-card h3 { font-size: 1rem; margin: 8px 0 8px; }
 .teaser-card p { color: var(--text-muted); font-size: 0.88rem; margin: 0; }
@@ -453,11 +464,176 @@ footer {
 .case-id { font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-2); letter-spacing: 0.08em; }
 .case-date { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim); }
 .case-file h2 { font-size: 1.15rem; margin-bottom: 4px; }
+.case-title-link { color: var(--text); text-decoration: none; }
+.case-title-link:hover { color: var(--accent); text-decoration: none; }
+.read-more { color: var(--accent); font-weight: 600; }
 .case-role { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); margin-bottom: 14px; }
 .case-file p.summary { color: var(--text-muted); font-size: 0.94rem; margin: 0 0 14px; }
+
+.case-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.case-gallery figure {
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg);
+}
+.case-gallery img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.case-gallery a:hover img {
+  transform: scale(1.03);
+  filter: brightness(1.08);
+}
+.case-gallery figcaption {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  padding: 8px 10px;
+  border-top: 1px solid var(--border);
+}
+
 .case-file ul { margin: 0 0 16px; padding-left: 20px; color: var(--text-muted); font-size: 0.9rem; }
 .case-file li { margin-bottom: 5px; }
 .case-links { display: flex; gap: 16px; font-family: var(--font-mono); font-size: 0.78rem; }
+
+.post-body { margin: 14px 0 18px; }
+.post-body p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin: 0 0 18px;
+}
+.post-body p:last-child { margin-bottom: 0; }
+
+/* Opening paragraph reads as the lede — brighter, sets the entry point */
+.post-body > p:first-child {
+  color: var(--text);
+  font-size: 1rem;
+}
+
+/* Headings reuse the site's eyebrow motif (accent dot + tracked caps)
+   and a dashed rule above, so each one reads as a new section boundary
+   rather than just bigger/colored text. */
+.post-body h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 40px 0 18px;
+  padding-top: 24px;
+  border-top: 1px dashed var(--border);
+}
+.post-body h3::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  background: var(--accent);
+  border-radius: 1px;
+}
+.post-body h3:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+
+/* Inline code gets a slightly raised surface so it pops off the
+   surrounding paragraph rather than blending into the same gray. */
+.post-body p code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--bg-panel-raised);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1px 6px;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+/* Code blocks are their own distinct module: a raised panel with a
+   labelled header strip, clearly separated from prose above and below. */
+.code-panel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 0 0 24px;
+  background: var(--bg-panel-raised);
+}
+.code-panel-head {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-panel);
+}
+.code-lang {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+.post-body pre.code-block {
+  margin: 0;
+  padding: 16px 18px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+.post-body pre.code-block code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  white-space: pre;
+}
+
+/* ---------- Project detail page ---------- */
+
+.detail-wrap { padding-top: 44px; padding-bottom: 90px; }
+
+.back-link {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+.back-link:hover { color: var(--accent); text-decoration: none; }
+
+.detail-head { margin-bottom: 24px; }
+.detail-head h1 {
+  font-size: clamp(1.7rem, 4vw, 2.3rem);
+  margin: 10px 0 8px;
+}
+.detail-head .case-role { margin-bottom: 16px; }
+
+.detail-gallery { margin-top: 8px; }
+
+.detail-section { margin-top: 28px; }
+.detail-section h2 {
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 14px;
+}
+.detail-section ul { margin: 0; padding-left: 20px; color: var(--text-muted); font-size: 0.96rem; }
+.detail-section li { margin-bottom: 8px; }
+
+.detail-links { margin-top: 32px; }
 
 .empty-slot {
   border: 1px dashed var(--border-strong);
