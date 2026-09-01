@@ -14,8 +14,13 @@ function renderBodyBlock(text) {
   if (codeMatch) {
     const lang = codeMatch[1];
     const code = codeMatch[2];
-    const langClass = lang ? ` class="language-${escapeHtml(lang)}"` : '';
-    return `<pre class="code-block"><code${langClass}>${escapeHtml(code)}</code></pre>`;
+    const label = lang || 'code';
+    return `
+      <div class="code-panel">
+        <div class="code-panel-head"><span class="code-lang">${escapeHtml(label)}</span></div>
+        <pre class="code-block"><code>${escapeHtml(code)}</code></pre>
+      </div>
+    `;
   }
 
   if (text.startsWith('### ')) {
