@@ -1,62 +1,42 @@
 function escapeHtml(str) {
-  const div = document.createElement('div');
+  const div = document.createElement("div");
   div.textContent = str;
   return div.innerHTML;
 }
 
-// Each entry in a post's `body` array can be:
-//  - a "### Heading" line          → rendered as a subheading
-//  - a fenced code block (```...```) → rendered as a code panel
-//  - anything else                  → a normal paragraph, where
-//                                      `inline code` still renders as code
-function renderBodyBlock(text) {
-  const codeMatch = text.match(/^```(\w*)\n([\s\S]*?)```$/);
-  if (codeMatch) {
-    const lang = codeMatch[1];
-    const code = codeMatch[2];
-    const label = lang || 'code';
-    return `
-      <div class="code-panel">
-        <div class="code-panel-head"><span class="code-lang">${escapeHtml(label)}</span></div>
-        <pre class="code-block"><code>${escapeHtml(code)}</code></pre>
-      </div>
-    `;
-  }
-
-  if (text.startsWith('### ')) {
-    return `<h3>${escapeHtml(text.slice(4))}</h3>`;
-  }
-
-  const escaped = escapeHtml(text);
-  const withInlineCode = escaped.replace(/`([^`]+)`/g, '<code>$1</code>');
-  return `<p>${withInlineCode}</p>`;
+function postUrl(post) {
+  const key = post.slug
+    ? `slug=${encodeURIComponent(post.slug)}`
+    : `id=${encodeURIComponent(post.id)}`;
+  return `post.html?${key}`;
 }
 
+// Compact card for the list page: id, title, date, tags, read time only.
+// The full write-up only renders on the post's own page (post.html).
 function renderPost(post) {
   const tags = (post.tags || [])
-    .map(t => `<span class="chip">${escapeHtml(t)}</span>`)
-    .join('');
+    .map((t) => `<span class="chip">${escapeHtml(t)}</span>`)
+    .join("");
 
-  const body = (post.body || [])
-    .map(renderBodyBlock)
-    .join('');
+  const href = postUrl(post);
 
   return `
-    <article class="case-file">
-      <div class="case-head">
-        <span class="case-id mono">POST::${escapeHtml(post.id)}</span>
-        <span class="case-date mono">${escapeHtml(post.date)}${post.readTime ? ` · ${escapeHtml(post.readTime)}` : ''}</span>
-      </div>
-      <h2>${escapeHtml(post.title)}</h2>
-      <div class="post-body">${body}</div>
-      <div class="chip-row">${tags}</div>
+    <article class="case-file case-file-compact">
+      <a class="case-file-link" href="${href}" aria-label="Read full post: ${escapeHtml(post.title)}">
+        <div class="case-head">
+          <span class="case-id mono">POST::${escapeHtml(post.id)}</span>
+          <span class="case-date mono">${escapeHtml(post.date)}${post.readTime ? ` · ${escapeHtml(post.readTime)}` : ""}</span>
+        </div>
+        <h2 class="case-title-link">${escapeHtml(post.title)}</h2>
+        <div class="chip-row">${tags}</div>
+      </a>
     </article>
   `;
 }
 
 function renderBlog() {
-  const container = document.getElementById('blogLog');
-  if (!container || typeof POSTS === 'undefined') return;
+  const container = document.getElementById("blogLog");
+  if (!container || typeof POSTS === "undefined") return;
 
   if (!POSTS.length) {
     container.innerHTML = `
@@ -67,13 +47,16 @@ function renderBlog() {
     return;
   }
 
-  container.innerHTML = POSTS.map(renderPost).join('');
+  container.innerHTML = POSTS.map(renderPost).join("");
 
-  container.insertAdjacentHTML('beforeend', `
+  container.insertAdjacentHTML(
+    "beforeend",
+    `
     <div class="empty-slot">
       + next post goes in js/blog-data.js — copy an object, fill it in, save.
     </div>
-  `);
+  `,
+  );
 }
 
 renderBlog();
