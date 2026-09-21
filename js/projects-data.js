@@ -204,11 +204,16 @@ const PROJECTS = [
     role: "HTX (Home Team Science and Technology Agency) — Cybersecurity Intern, Biometrics & Profiling",
     tags: ["TEE", "FHE", "Gramine-SGX", "TenSEAL", "Biometrics"],
     summary: "A biometric identification pipeline that keeps face data encrypted through computation, running inside a hardware-backed trusted execution environment.",
-    bullets: [
-      "Built a full pipeline from enrollment through FHE-encrypted 1:N identification, running inside a Gramine-SGX trusted execution environment on Azure.",
-      "Used ArcFace to generate face embeddings and TenSEAL (CKKS scheme) to match them directly on encrypted data, so the server never touches plaintext biometric data.",
-      "Hardened the system against insider threats and inference attacks as part of HTX's defensive architecture for biometric profiling."
+    sections: [
+      { title: "Problem", body: ["Does Fully Homomorphic Encryption provide more security and how does it fair compared to current secure methods?"] },
+      { title: "Solution", body: ["Build a pipeline to evaluate and compare current Trusted Execution Envionment (TEE) only and Fully Homomorphic Encryption (FHE) with TEE."] },
+      { title: "What I Built", bullets: [
+        "Built a full pipeline from enrollment through FHE-encrypted 1:N identification, running inside a Gramine-SGX trusted execution environment on Azure.",
+        "Used ArcFace to generate face embeddings and TenSEAL (CKKS scheme) to match them directly on encrypted data, so the server never touches plaintext biometric data.",
+        "Hardened the system against insider threats and inference attacks as part of HTX's defensive architecture for biometric profiling."
+      ]}
     ],
+
     links: {}
   }
 

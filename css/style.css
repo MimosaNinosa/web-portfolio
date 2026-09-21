@@ -326,7 +326,7 @@ section:last-of-type { border-bottom: none; }
 }
 .fact-list li:last-child { border-bottom: none; }
 .fact-list .k { color: var(--text-dim); }
-.fact-list .v { color: var(--text); text-align: right; }
+.fact-list .v { color: var(--text); text-align: right; white-space: pre-line;}
 
 /* Timeline */
 .timeline { position: relative; padding-left: 28px; }

@@ -31,7 +31,7 @@ const SITE = {
     facts: [
       { k: "Based in", v: "Singapore" },
       { k: "Currently", v: "HTX, Biometrics & Profiling" },
-      { k: "Exchanges", v: "Tampere University, FI\n Zhejiang University, CN" },
+      { k: "Exchanges", v: "Tampere University, FI\n - Zhejiang University, CN" },
       { k: "Focus", v: "TEE / FHE / Applied Crypto" },
       { k: "Daily driver", v: "Arch Linux + Hyprland" },
       { k: "Contact", v: "91198286" },
