@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#171f2b"/>
+  <rect x="1" y="1" width="798" height="498" fill="none" stroke="#26313f" stroke-width="2"/>
+  <g stroke="#3a4a5c" stroke-width="1.5" stroke-dasharray="6 6">
+    <line x1="0" y1="0" x2="800" y2="500"/>
+    <line x1="800" y1="0" x2="0" y2="500"/>
+  </g>
+  <text x="400" y="235" text-anchor="middle" font-family="monospace" font-size="20" fill="#5eead4" letter-spacing="1">
+    REPLACE THIS IMAGE
+  </text>
+  <text x="400" y="265" text-anchor="middle" font-family="monospace" font-size="13" fill="#8a97a6">
+    assets/projects/placeholder.svg
+  </text>
+</svg>
