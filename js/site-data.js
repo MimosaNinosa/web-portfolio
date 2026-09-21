@@ -43,7 +43,7 @@ const SITE = {
     {
       role: "Cybersecurity Intern — Biometrics & Profiling",
       org: "HTX (Home Team Science and Technology Agency), Singapore",
-      date: "June 2026 — Sep 2026",
+      date: "Jun 2026 — Sep 2026",
       bullets: [
         "Implementing Trusted Execution Environments (TEE) and Fully Homomorphic Encryption (FHE) to enable privacy-preserving biometric processing, keeping data encrypted through computation.",
         "Researching practical TEE+FHE deployment to harden biometric systems against insider threats and inference attacks.",
