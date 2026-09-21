@@ -83,7 +83,7 @@ const SITE = {
     {
       role: "Exchange — Secure Programming, Wireless Networking, IoT, Functional Programming",
       org: "Tampere University, Finland",
-      date: "Dec 2025 — Jul 2026",
+      date: "Jan 2026 — Jun 2026",
     },
     {
       role: "Exchange - Entreprenaurship Program",
