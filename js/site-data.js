@@ -26,7 +26,7 @@ const SITE = {
     paragraphs: [
       "Cybersecurity-focused engineer with hands-on experience across digital forensics, secure systems design, and applied cryptography. My background spans offensive security tooling, defensive programming, and privacy-preserving technologies — particularly Trusted Execution Environments (TEE) and Fully Homomorphic Encryption (FHE) — alongside AI safety evaluation work.",
       "Currently reading a BSc in Design & Artificial Intelligence at SUTD, with an exchange at Tampere University, Finland and at Zhejiang University, Hangzhou, China.",
-      "Currently doing an internship with HTX's Biometrics and Profiling department, where I work on hardening biometric data against insider threats and inference attacks.",
+      "Recently completed an internship with HTX's Biometrics and Profiling department, where I work on hardening biometric data against insider threats and inference attacks.",
     ],
     facts: [
       { k: "Based in", v: "Singapore" },

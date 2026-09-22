@@ -15,7 +15,7 @@ function renderHero() {
     <p class="lede">${escapeHtml(p.tagline)}</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="projects.html">View project log →</a>
-      <a class="btn" href="${p.resumeFile}" target="_blank" rel="noopener">Download résumé (PDF)</a>
+      <a class="btn" href="${p.resumeFile}" target="_blank" rel="noopener">Download résumé</a>
       <a class="btn" href="mailto:${p.email}">Get in touch</a>
     </div>
   `;
