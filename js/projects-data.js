@@ -296,7 +296,7 @@ const PROJECTS = [
         title: "Outcome",
         bullets: [
           "Rendered a full advertisement-like project demonstration designed in Blender.",
-          "Built a life sized scaled working model. Featuring the robotic arm."
+          "Built a life sized scaled working model. Featuring the robotic arm.",
           "Exceeded the expectations set by the team and the professors.",
         ],
       },
