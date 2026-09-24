@@ -19,7 +19,7 @@ const SITE = {
     phone: "+65 9119 8286",
     linkedin: "https://linkedin.com/in/leechunyong",
     linkedinLabel: "linkedin.com/in/leechunyong",
-    resumeFile: "https://assets.chunyong.cc/Lee_ChunYong_Resume_Cyber.docx",
+    resumeFile: "https://assets.chunyong.cc/Lee_ChunYong_Resume.docx",
   },
 
   about: {
@@ -31,7 +31,10 @@ const SITE = {
     facts: [
       { k: "Based in", v: "Singapore" },
       { k: "Currently", v: "HTX, Biometrics & Profiling" },
-      { k: "Exchanges", v: "Tampere University, FI\n - Zhejiang University, CN" },
+      {
+        k: "Exchanges",
+        v: "Tampere University, FI\n - Zhejiang University, CN",
+      },
       { k: "Focus", v: "TEE / FHE / Applied Crypto" },
       { k: "Daily driver", v: "Arch Linux + Hyprland" },
       { k: "Contact", v: "91198286" },
