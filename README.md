@@ -52,7 +52,11 @@ images:                    # optional; video files render as a player
   - src: "/assets/projects/shot.png"
     alt: "What the image shows"
     caption: "Optional caption"
-links:                     # optional: repo, demo, report
+    link: "https://…/full.pdf"   # optional; where clicking goes (default: the image)
+    portrait: true               # optional; tall image beside a video, 2:1 split
+    width: 1200                  # optional; prevents layout shift while loading
+    height: 1699
+links:                     # optional: repo, demo, report, poster
   repo: "https://github.com/…"
 ---
 

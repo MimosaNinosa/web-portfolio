@@ -3,7 +3,7 @@ layout: layouts/base.njk
 navSection: work
 ogType: article
 ---
-{%- set linkLabels = { repo: "Source", demo: "Live demo", report: "Team report (PDF)" } -%}
+{%- set linkLabels = { repo: "Source", demo: "Live demo", report: "Team report (PDF)", poster: "Poster (PDF)" } -%}
 <main class="wrap detail">
   <a class="back-link" href="/projects/">← All projects</a>
   <article>
@@ -33,13 +33,13 @@ ogType: article
     </div>
 
     {%- if images and images.length %}
-    <div class="media-grid{% if images.length == 1 %} single{% endif %}">
+    <div class="media-grid{% if images.length == 1 %} single{% elif images | selectattr('portrait') | length %} with-portrait{% endif %}">
       {%- for item in images %}
-      <figure>
+      <figure{% if item.portrait %} class="portrait"{% endif %}>
         {%- if item.src | isVideo %}
         <video src="{{ item.src }}" controls preload="metadata" playsinline>{{ item.alt }}</video>
         {%- else %}
-        <a href="{{ item.src }}" target="_blank" rel="noopener"><img src="{{ item.src }}" alt="{{ item.alt }}" loading="lazy"></a>
+        <a href="{{ item.link or item.src }}" target="_blank" rel="noopener"><img src="{{ item.src }}" alt="{{ item.alt }}" loading="lazy"{% if item.width %} width="{{ item.width }}" height="{{ item.height }}"{% endif %}></a>
         {%- endif %}
         {%- if item.caption %}<figcaption>{{ item.caption }}</figcaption>{% endif %}
       </figure>
