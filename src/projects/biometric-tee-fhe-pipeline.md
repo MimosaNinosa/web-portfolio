@@ -1,10 +1,11 @@
 ---
-title: "Face identification on encrypted data, inside a TEE"
+title: "Face identification on homomorphically encrypted data, inside an SGX enclave"
 sortDate: "2026-09"
 period: "Jun – Sep 2026"
 role: "HTX, Biometrics & Profiling · Cybersecurity intern"
 stack: ["Gramine-SGX", "Azure", "TenSEAL (CKKS)", "ArcFace", "Python"]
 summary: "A 1:N face identification pipeline where embeddings stay encrypted during matching, running inside an SGX enclave, benchmarked against a TEE-only version."
+result: "~6,000× cost of FHE matching"
 featured: true
 ---
 
@@ -29,3 +30,9 @@ A trusted execution environment narrows that window: the plaintext only exists i
 - Privileged insiders with access to the host.
 - Memory scraping during processing.
 - Inference attacks against stored templates.
+
+## Results
+
+- **Matching on ciphertext was about 6,000× slower** than matching plaintext embeddings, and the time grew as the gallery of enrolled faces got bigger.
+- **The network, not the encryption maths, was the biggest cost.** The enclave can't decrypt the similarity scores, so it can't pick the best match itself. Every encrypted score has to go back to the client to be decrypted, and that traffic grows with every face enrolled.
+- **So FHE closes the last gap, at a price.** I documented the benchmarks and trade-offs for the HTX team, as evidence for how much protection the extra cost buys.
