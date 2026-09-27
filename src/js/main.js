@@ -92,3 +92,106 @@
     });
   });
 })();
+
+/* ---------- Homepage intro: type the headline out ----------
+   theme-init.js adds .intro-typing to <html> (once per session, never with
+   reduced motion) so the intro starts hidden. Here each character becomes a
+   span that is already laid out but invisible, so revealing them one by one
+   never shifts the layout. Screen readers get the full sentence via
+   aria-label. Any key, click, scroll or touch skips to the end. */
+(function initIntroTyping() {
+  const root = document.documentElement;
+  const lede = document.getElementById('introLede');
+  if (!lede || !root.classList.contains('intro-typing')) return;
+
+  lede.setAttribute('aria-label', lede.textContent.replace(/\s+/g, ' ').trim());
+
+  const textNodes = [];
+  const walker = document.createTreeWalker(lede, NodeFilter.SHOW_TEXT);
+  while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+  const chars = [];
+  textNodes.forEach(node => {
+    const frag = document.createDocumentFragment();
+    for (const c of node.textContent) {
+      const span = document.createElement('span');
+      span.className = 'ch';
+      span.setAttribute('aria-hidden', 'true');
+      span.textContent = c;
+      frag.appendChild(span);
+      chars.push(span);
+    }
+    node.replaceWith(frag);
+  });
+
+  const caret = document.createElement('span');
+  caret.className = 'caret';
+  caret.setAttribute('aria-hidden', 'true');
+  lede.prepend(caret);
+
+  root.classList.add('intro-typing-live');
+
+  let index = 0;
+  let timer = null;
+  const skipEvents = ['keydown', 'pointerdown', 'wheel', 'touchstart', 'scroll'];
+
+  const finish = () => {
+    clearTimeout(timer);
+    skipEvents.forEach(type => window.removeEventListener(type, finish));
+    chars.forEach(span => span.classList.add('on'));
+    if (chars.length) chars[chars.length - 1].after(caret);
+    root.classList.add('intro-typed');
+    try { sessionStorage.setItem('introTyped', '1'); } catch (e) { /* storage unavailable */ }
+    // Let the caret blink a few times, then fade it away.
+    setTimeout(() => caret.classList.add('caret-done'), 2400);
+    setTimeout(() => caret.remove(), 3000);
+  };
+
+  const step = () => {
+    if (index >= chars.length) { finish(); return; }
+    const span = chars[index++];
+    span.classList.add('on');
+    span.after(caret);
+    const c = span.textContent;
+    const delay = /[.!?]/.test(c) ? 240
+      : /[,:;]/.test(c) ? 140
+      : 10 + Math.random() * 16;
+    timer = setTimeout(step, delay);
+  };
+
+  skipEvents.forEach(type => window.addEventListener(type, finish, { passive: true }));
+  timer = setTimeout(step, 350);
+})();
+
+/* ---------- Scroll cue: fade out once the visitor starts scrolling ---------- */
+(function initScrollCue() {
+  const cue = document.querySelector('.scroll-cue');
+  if (!cue) return;
+  let ticking = false;
+  const update = () => {
+    cue.classList.toggle('is-hidden', window.scrollY > 40);
+    ticking = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  update();
+})();
+
+/* ---------- Exposure diagram: fill in when it scrolls into view ---------- */
+(function initExposureReveal() {
+  const figures = document.querySelectorAll('.exposure');
+  if (!figures.length) return;
+  if (!('IntersectionObserver' in window)) {
+    figures.forEach(fig => fig.classList.add('in-view'));
+    return;
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('in-view');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.35 });
+  figures.forEach(fig => observer.observe(fig));
+})();

@@ -1,7 +1,7 @@
 /* ============================================================
    SITE DATA — the homepage and shared details.
    Available in every template as `site`.
-   Text fields are plain text. In `profile.intro`, wrap a phrase
+   Text fields are plain text. In `profile.introLines`, wrap a phrase
    in *asterisks* to set it in italic accent colour.
    Projects live in src/projects/*.md, posts in src/blog/*.md.
    ============================================================ */
@@ -12,14 +12,37 @@ export default {
     location: "Singapore",
     study: "BSc Design & AI, SUTD",
     status: "Open to opportunities", // set to "" to hide
-    intro:
-      "I'm Chun Yong, a security-focused student at SUTD. This summer at HTX I worked on face matching that runs on data which stays *encrypted, even inside the machine doing the matching.*",
-    sub:
-      "Before that: digital forensics at KPMG and LLM evaluation at an AI startup in Hangzhou. I also run a small hardened home server, which occasionally turns into a blog post.",
+    // The headline types itself out, one line after another.
+    // Wrap a phrase in *asterisks* to set it in italic accent colour.
+    introLines: [
+      "I'm Chun Yong, a security-focused student at SUTD.",
+      "I build systems that keep data *private, even while it's being computed on.*",
+    ],
+    // Short labelled rows under the headline. `href` is optional.
+    highlights: [
+      {
+        label: "Recently",
+        text: "Face matching on data that stays encrypted, even inside the enclave doing the matching",
+        where: "HTX · Jun – Sep 2026",
+        href: "/projects/biometric-tee-fhe-pipeline/",
+      },
+      {
+        label: "Before",
+        text: "Digital forensics tooling at KPMG, then LLM evaluation at an AI startup",
+        where: "Singapore · Hangzhou",
+        href: "/#experience",
+      },
+      {
+        label: "On the side",
+        text: "A hardened home server, and the occasional blog post about it",
+        where: "Debian · WireGuard · nftables",
+        href: "/projects/home-server-security-infrastructure/",
+      },
+    ],
     email: "email@chunyong.cc",
     linkedin: "https://linkedin.com/in/leechunyong",
     linkedinLabel: "linkedin.com/in/leechunyong",
-    resumeFile: "https://assets.chunyong.cc/Lee_ChunYong_Resume.docx",
+    resumeFile: "https://assets.chunyong.cc/Lee_ChunYong_Resume.pdf",
   },
 
   // The "Research question" block on the homepage. The diagram itself

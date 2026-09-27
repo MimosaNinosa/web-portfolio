@@ -7,20 +7,38 @@ permalink: /
 {%- set posts = collections.posts | reverse -%}
 <main>
   <section class="intro wrap" id="intro">
-    <p class="intro-meta">
+    <p class="intro-meta intro-reveal">
       <span>{{ p.location }}</span>
       <span>{{ p.study }}</span>
       {%- if p.status %}<span class="status">{{ p.status }}</span>{% endif %}
     </p>
     <div>
-      <h1 class="intro-lede">{{ p.intro | emphasis | safe }}</h1>
-      <p class="intro-sub">{{ p.sub }}</p>
-      <p class="intro-links">
+      <h1 class="intro-lede" id="introLede">
+        {%- for line in p.introLines %}<span class="lede-line">{{ line | emphasis | safe }}</span>{% if not loop.last %} {% endif %}{% endfor -%}
+      </h1>
+      <ul class="intro-rows">
+        {%- for row in p.highlights %}
+        <li class="intro-row intro-reveal">
+          <span class="intro-row-label">{{ row.label }}</span>
+          {%- if row.href %}
+          <a class="intro-row-text" href="{{ row.href }}">{{ row.text }}</a>
+          {%- else %}
+          <span class="intro-row-text">{{ row.text }}</span>
+          {%- endif %}
+          <span class="intro-row-where">{{ row.where }}</span>
+        </li>
+        {%- endfor %}
+      </ul>
+      <p class="intro-links intro-reveal">
         <a href="mailto:{{ p.email }}">Email</a>
         <a href="{{ p.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="{{ p.resumeFile }}" target="_blank" rel="noopener">Résumé (.docx)</a>
+        <a href="{{ p.resumeFile }}" target="_blank" rel="noopener">Résumé (PDF)</a>
       </p>
     </div>
+    <a class="scroll-cue intro-reveal" href="#research">
+      <span class="scroll-cue-track" aria-hidden="true"><i></i></span>
+      <span class="scroll-cue-label">Scroll · Research question ↓</span>
+    </a>
   </section>
 
   <section class="sheet wrap" id="research">
@@ -123,7 +141,7 @@ permalink: /
       <a class="contact-email" href="mailto:{{ p.email }}">{{ p.email }}</a>
       <p class="contact-rest">
         <a href="{{ p.linkedin }}" target="_blank" rel="noopener">{{ p.linkedinLabel }}</a>
-        <a href="{{ p.resumeFile }}" target="_blank" rel="noopener">Résumé (.docx)</a>
+        <a href="{{ p.resumeFile }}" target="_blank" rel="noopener">Résumé (PDF)</a>
       </p>
     </div>
   </section>

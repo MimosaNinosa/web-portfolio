@@ -238,12 +238,18 @@ h1, h2, h3 {
 
 /* ---------- Intro ---------- */
 
+/* The intro fills the first screen (minus the ~64px masthead); the
+   research section starts just below the fold. */
 .intro {
   display: grid;
   grid-template-columns: var(--margin-col) minmax(0, 1fr);
   gap: var(--gutter);
+  align-content: center;
+  position: relative;
+  min-height: calc(100vh - 64px);
+  min-height: calc(100svh - 64px);
   padding-top: 56px;
-  padding-bottom: 56px;
+  padding-bottom: 136px; /* room for the scroll cue */
 }
 
 .intro-meta {
@@ -275,19 +281,156 @@ h1, h2, h3 {
 }
 .intro-lede em { font-style: italic; color: var(--accent); }
 
-.intro-sub {
-  margin: 18px 0 0;
-  max-width: 36em;
-  font-size: 1.1rem;
+.lede-line { display: block; }
+.lede-line + .lede-line { margin-top: 0.35em; }
+
+/* Labelled rows under the headline: label · what · where */
+.intro-rows {
+  list-style: none;
+  margin: 34px 0 0;
+  padding: 0;
+  max-width: 44rem;
+}
+.intro-row:first-child { border-top: 1px solid var(--ink); }
+.intro-row {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr) auto;
+  gap: 6px 20px;
+  align-items: baseline;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.intro-row-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.intro-row-text {
+  font-size: 1.05rem;
+  line-height: 1.4;
+  color: var(--ink);
+}
+a.intro-row-text { text-decoration-color: var(--rule); }
+a.intro-row-text:hover { color: var(--accent); text-decoration-color: var(--accent); }
+.intro-row-where {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-3);
+  text-align: right;
+  white-space: nowrap;
 }
 
 .intro-links {
-  margin: 30px 0 0;
+  margin: 26px 0 0;
   display: flex;
   flex-wrap: wrap;
   gap: 10px 26px;
   font-family: var(--font-mono);
   font-size: 0.85rem;
+}
+
+/* Scroll cue: a hairline with the accent square travelling down it */
+.scroll-cue {
+  position: absolute;
+  bottom: 36px;
+  left: calc(24px + var(--margin-col) + var(--gutter));
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: opacity 0.4s ease, color 0.15s ease;
+}
+.scroll-cue:hover { color: var(--accent); }
+.scroll-cue-track {
+  position: relative;
+  width: 7px;
+  height: 52px;
+  overflow: hidden;
+}
+.scroll-cue-track::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--rule-strong);
+}
+.scroll-cue-track i {
+  position: absolute;
+  left: 0;
+  top: -8px;
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  animation: cue-drop 2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+@keyframes cue-drop {
+  0% { transform: translateY(0); opacity: 0; }
+  15% { opacity: 1; }
+  70% { transform: translateY(60px); opacity: 1; }
+  100% { transform: translateY(60px); opacity: 0; }
+}
+
+/* ---------- Intro typing (see initIntroTyping in main.js) ----------
+   .intro-typing  — set in <head>: hide the intro until typing starts.
+                    The failsafe animation reveals it anyway if JS fails.
+   .intro-typing-live — typing has started.
+   .intro-typed   — headline finished; fade in the rest, in order. */
+
+.intro-typing .intro-lede,
+.intro-typing .intro-reveal {
+  opacity: 0;
+  animation: intro-failsafe 0.4s ease 6s forwards;
+}
+@keyframes intro-failsafe { to { opacity: 1; } }
+
+.intro-typing-live .intro-lede { opacity: 1; animation: none; }
+.intro-typing-live .intro-reveal {
+  animation: none;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.intro-typed .intro-reveal { opacity: 1; transform: none; }
+.intro-typed .intro-row:nth-child(1) { transition-delay: 0.05s; }
+.intro-typed .intro-row:nth-child(2) { transition-delay: 0.17s; }
+.intro-typed .intro-row:nth-child(3) { transition-delay: 0.29s; }
+.intro-typed .intro-links { transition-delay: 0.45s; }
+.intro-typed .intro-meta { transition-delay: 0.55s; }
+.intro-typed .scroll-cue { transition-delay: 0.85s, 0s; }
+
+.intro-lede .ch { visibility: hidden; }
+.intro-lede .ch.on { visibility: visible; }
+
+/* Zero-width caret, so moving it never reflows the text */
+.caret { display: inline-block; width: 0; position: relative; }
+.caret::after {
+  content: '';
+  position: absolute;
+  left: 2px;
+  bottom: -0.2em;
+  width: 2px;
+  height: 1.05em;
+  background: var(--accent);
+  animation: caret-blink 1s steps(1) infinite;
+  transition: opacity 0.5s ease;
+}
+.intro-typing-live:not(.intro-typed) .caret::after { animation: none; }
+.caret.caret-done::after { opacity: 0; animation: none; }
+@keyframes caret-blink { 50% { opacity: 0; } }
+
+/* After the intro: hide the cue once scrolling starts */
+.scroll-cue.is-hidden { opacity: 0; pointer-events: none; transition-delay: 0s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue-track i { animation: none; top: auto; bottom: 0; }
 }
 
 /* ---------- Exposure diagram (signature element) ----------
@@ -491,6 +634,14 @@ h1, h2, h3 {
 .page-head h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 400; }
 .page-head p { margin: 14px 0 0; max-width: 38em; font-size: 1.15rem; }
 
+.page-head .feed-note {
+  margin-top: 16px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-3);
+}
+.feed-note code { color: var(--ink); overflow-wrap: anywhere; }
+
 .ledger { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
 .ledger li { border-bottom: 1px solid var(--rule); }
 
@@ -681,13 +832,49 @@ h1, h2, h3 {
 }
 .code-block code { white-space: pre; }
 
+/* ---------- Micro-interactions ---------- */
+
+/* Exposure diagram fills in row by row when scrolled into view; the
+   "while matching" column lands last, since it's the point of the figure. */
+.exposure-row:nth-child(3) { --row: 1; }
+.exposure-row:nth-child(4) { --row: 2; }
+.exposure-row .cell:nth-child(3) { --col: 1; }
+.exposure-row .cell:nth-child(4) { --col: 3; }
+.js .exposure .cell {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition-delay: calc(var(--row, 0) * 140ms + var(--col, 0) * 110ms);
+}
+.js .exposure:not(.in-view) .cell { opacity: 0; transform: translateY(6px); }
+@media (prefers-reduced-motion: reduce) {
+  .js .exposure:not(.in-view) .cell { opacity: 1; transform: none; }
+}
+
+/* Arrow slides in next to project titles on hover */
+.work-title::after,
+.ledger-title::after {
+  content: '→';
+  display: inline-block;
+  margin-left: 0.35em;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.work-item:hover .work-title::after,
+.work-item:focus-visible .work-title::after,
+.ledger-row:hover .ledger-title::after,
+.ledger-row:focus-visible .ledger-title::after { opacity: 1; transform: none; }
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 860px) {
   .sheet,
   .intro { grid-template-columns: 1fr; gap: 14px; }
   .sheet-label { padding-top: 0; }
-  .intro { padding-top: 36px; padding-bottom: 44px; }
+  .intro { padding-top: 36px; padding-bottom: 120px; }
+  .scroll-cue { left: 24px; bottom: 28px; }
+  .intro-row { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .intro-row-where { text-align: left; white-space: normal; }
   .intro-meta { padding-top: 0; order: 2; }
   .intro-meta span { display: inline; }
   .intro-meta span:not(:last-child)::after { content: ' · '; color: var(--ink-3); }
