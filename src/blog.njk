@@ -1,0 +1,32 @@
+---
+layout: layouts/base.njk
+permalink: /blog/
+title: Writing
+navSection: blog
+description: "Notes on security, systems and self-hosting by Lee Chun Yong."
+---
+{%- set posts = collections.posts | reverse -%}
+<main class="wrap">
+  <header class="page-head">
+    <h1>Writing</h1>
+    <p>Notes on whatever I'm building or reading into: security, systems, and the home server. Also available as a <a href="/feed.xml">feed</a>.</p>
+  </header>
+  {%- if posts.length %}
+  <ol class="ledger">
+    {%- for post in posts %}
+    <li>
+      <a class="ledger-row post" href="{{ post.url }}">
+        <time class="ledger-date meta" datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time>
+        <span class="ledger-main">
+          <span class="ledger-title">{{ post.data.title }}</span>
+          <span class="ledger-tags meta">{{ post.data.topics | join(" · ") }}</span>
+        </span>
+        <span class="ledger-read meta">{{ post.data.readTime }}</span>
+      </a>
+    </li>
+    {%- endfor %}
+  </ol>
+  {%- else %}
+  <p class="empty-note">No posts yet.</p>
+  {%- endif %}
+</main>

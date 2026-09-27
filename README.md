@@ -1,84 +1,113 @@
 # Lee Chun Yong — Portfolio
 
-Static site, no build step. Two pages:
+Personal site at <https://portfolio.chunyong.cc>, built with
+[Eleventy](https://www.11ty.dev/) into plain static HTML and deployed to
+GitHub Pages by GitHub Actions.
 
-- `index.html` — main profile (about, experience, education, skills, contact)
-- `projects.html` — project log, rendered from `js/projects-data.js`
+Design: an engineering notebook / spec sheet — paper and ink, one signal
+colour, serif prose (Newsreader) and monospace (IBM Plex Mono) only for data.
+Light and dark themes, with a toggle.
 
-## Deploy on GitHub Pages (free, works with your existing GitHub account)
+## Working on it locally
 
-1. Create a new repo, e.g. `leechunyong.github.io` (use exactly `<your-username>.github.io`
-   if you want it at the root domain, or any name if you're fine with
-   `<your-username>.github.io/<repo-name>`).
-2. Push this folder's contents to the repo root:
-   ```bash
-   cd portfolio
-   git init
-   git add .
-   git commit -m "Initial portfolio"
-   git branch -M main
-   git remote add origin https://github.com/<your-username>/<repo-name>.git
-   git push -u origin main
-   ```
-3. In the repo: **Settings → Pages → Source → Deploy from a branch → `main` / `root`**.
-4. Your site is live at `https://<your-username>.github.io/` (or `/<repo-name>/` if
-   not a root repo) within a minute or two.
+Needs Node 20+.
 
-### Custom subdomain later
-If you later want `projects.yourdomain.com` instead of a `/projects.html` tab:
-add a `CNAME` file with that subdomain, point a DNS `CNAME` record at
-`<your-username>.github.io`, and set it in Settings → Pages. Everything else
-in this repo stays the same — the projects page doesn't need to move.
-
-## Updating the site
-
-Everything you'd normally want to change lives in two plain data files.
-You never need to touch the HTML.
-
-### Homepage — `js/site-data.js`
-One `SITE` object with your name, tagline, status pill, about text,
-experience, education, skills, and contact info. Edit a value, save,
-refresh the page. Comments at the top of each section explain the shape.
-
-- **Change your status** (e.g. stop showing "open to opportunities"):
-  edit `SITE.profile.status`.
-- **Add a job**: copy an object in `SITE.experience`, fill it in. Most
-  recent entry goes first — the list renders top to bottom.
-- **Add a skill**: find the right group in `SITE.skills` and add a string
-  to its `items` array, or copy a whole group for a new category.
-
-### Projects — `js/projects-data.js`
-One `PROJECTS` array, same pattern. Copy an object, fill in the fields,
-save. `projects.html` re-renders itself automatically.
-
-The homepage's "From the project log" teaser section pulls its 3 cards
-directly from this same array (`SITE.featuredCount` controls how many) —
-so a new project you add here shows up on the homepage too, with nothing
-to duplicate or keep in sync by hand.
-
-### Updating your résumé
-Replace `assets/Lee_ChunYong_Resume_Cyber.pdf` with a newer export using
-the exact same filename — the download link updates itself.
-
-### If you ever do need to touch layout or styling
-`index.html` and `projects.html` are now just empty containers with ids
-(`heroContent`, `experienceList`, `skillsGrid`, etc.) — `js/render-site.js`
-and `js/render-projects.js` fill them in from the data files at page load.
-Colors, spacing, and type live in `css/style.css`.
-
-## Structure
+```bash
+npm install     # once
+npm start       # dev server with live reload at http://localhost:8112
+npm run build   # writes the finished site to _site/
 ```
-portfolio/
-├── index.html
-├── projects.html
-├── css/style.css
-├── js/
-│   ├── main.js              # nav toggle + scroll-spy
-│   ├── site-data.js          # ← edit this: homepage content
-│   ├── render-site.js        # renders site-data.js into index.html
-│   ├── projects-data.js      # ← edit this: project entries
-│   └── render-projects.js    # renders projects-data.js into cards
-├── assets/
-│   └── Lee_ChunYong_Resume_Cyber.pdf
-└── README.md
+
+## Where things live
+
 ```
+src/
+  _data/site.js         homepage text: intro, about, experience, education, skills, contact
+  _data/exposure.js     rows of the TEE / FHE "where is the data readable" diagram
+  projects/*.md         one file per project → /projects/<file-name>/
+  blog/*.md             one file per post    → /blog/<file-name>/
+  _includes/layouts/    base (head, CSP, nav, footer), project and post layouts
+  index.njk             homepage
+  projects.njk, blog.njk   list pages
+  legacy/               redirects from the old URLs (projects.html, project.html?slug=…, …)
+  css/, js/, assets/    copied through as-is
+eleventy.config.js      collections, filters, Markdown code panels, feed, CSP
+```
+
+### Add a project
+
+Create `src/projects/<slug>.md`. The file name becomes the URL.
+
+```markdown
+---
+title: "Project title"
+sortDate: "2026-10"        # YYYY or YYYY-MM; newest first
+period: "Oct 2026"
+role: "Course / employer · your role"
+stack: ["Python", "Docker"]
+summary: "One or two plain sentences. Used on lists, as the standfirst, and in link previews."
+result: "45 min → 10 s"    # optional; one concrete outcome
+featured: true             # optional; show on the homepage
+images:                    # optional; video files render as a player
+  - src: "/assets/projects/shot.png"
+    alt: "What the image shows"
+    caption: "Optional caption"
+links:                     # optional: repo, demo, report
+  repo: "https://github.com/…"
+---
+
+## The problem
+
+Plain Markdown from here on. Use whatever headings fit.
+
+## What I built
+
+- …
+```
+
+Project files can include the diagram with `{% include "exposure.njk" %}`.
+
+### Add a post
+
+Create `src/blog/<slug>.md`:
+
+```markdown
+---
+title: "Post title"
+date: 2026-10-01
+topics: ["Linux", "Security"]
+readTime: "5 min read"     # optional
+---
+
+Opening paragraph…
+
+## A section
+
+Code fences get a labelled panel with a copy button.
+```
+
+Posts are plain Markdown (no template tags), so code containing `{{ }}` is safe.
+New posts appear in the feed at `/feed.xml`.
+
+## Deploying
+
+Pushing to `main` runs `.github/workflows/deploy.yml`, which builds the site
+and publishes `_site/` to GitHub Pages.
+
+One-time setup: **Settings → Pages → Build and deployment → Source: GitHub
+Actions**. Do this before the first push of the Eleventy version — with the
+old "Deploy from a branch" setting, Pages would publish the raw `src/` folder.
+
+The custom domain is kept by `src/CNAME` and the Pages settings.
+
+## Security headers
+
+- A Content-Security-Policy is set with a `<meta>` tag on every page (defined
+  in `eleventy.config.js`). It allows scripts only from this site, styles and
+  fonts from Google Fonts, and images/video from `assets.chunyong.cc`. Inline
+  scripts are blocked — keep all JS in `src/js/`.
+- If you add a third-party resource (analytics, embeds, another CDN), add its
+  origin to the CSP or it will be blocked.
+- GitHub Pages can't set response headers. Headers that only work as real
+  headers (X-Frame-Options / `frame-ancestors`, X-Content-Type-Options,
+  HSTS preload) come from Cloudflare in front of the site.

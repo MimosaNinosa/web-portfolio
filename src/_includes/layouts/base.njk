@@ -1,0 +1,65 @@
+{%- set pageTitle = (title + " — Lee Chun Yong") if title else "Lee Chun Yong — Security engineering" -%}
+{%- set pageDescription = description or summary or "Lee Chun Yong: security-focused student at SUTD working on trusted execution environments, homomorphic encryption and applied cryptography." -%}
+{%- set pageUrl = siteUrl + page.url -%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="{{ csp }}">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ pageTitle }}</title>
+<meta name="description" content="{{ pageDescription }}">
+<link rel="canonical" href="{{ pageUrl }}">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="alternate" type="application/atom+xml" href="/feed.xml" title="Lee Chun Yong — Writing">
+<meta name="theme-color" content="#f4f1ea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#191816" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="{{ ogType or 'website' }}">
+<meta property="og:site_name" content="Lee Chun Yong">
+<meta property="og:title" content="{{ pageTitle }}">
+<meta property="og:description" content="{{ pageDescription }}">
+<meta property="og:url" content="{{ pageUrl }}">
+<meta property="og:image" content="{{ siteUrl }}/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lee Chun Yong — security engineering: trusted execution, homomorphic encryption and applied cryptography.">
+<meta name="twitter:card" content="summary_large_image">
+<script src="/js/theme-init.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<script src="/js/main.js" defer></script>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="wordmark" href="/">Lee Chun Yong</a>
+    <nav aria-label="Main">
+      <ul class="nav-links" id="navLinks">
+        <li><a class="nav-link{% if navSection == 'work' %} active{% endif %}" href="/projects/"{% if page.url == '/projects/' %} aria-current="page"{% endif %}>Work</a></li>
+        <li><a class="nav-link{% if navSection == 'blog' %} active{% endif %}" href="/blog/"{% if page.url == '/blog/' %} aria-current="page"{% endif %}>Writing</a></li>
+        <li><a class="nav-link" href="/#about">About</a></li>
+        <li><a class="nav-link" href="/#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" type="button">Dark</button>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">Menu</button>
+  </div>
+</header>
+
+{{ content | safe }}
+
+<footer class="colophon">
+  <div class="wrap colophon-inner">
+    <span>© {{ buildYear }} Lee Chun Yong · <a href="/feed.xml">Feed</a></span>
+    <span>Set in Newsreader and IBM Plex Mono</span>
+  </div>
+</footer>
+
+</body>
+</html>

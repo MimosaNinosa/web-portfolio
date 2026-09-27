@@ -1,0 +1,29 @@
+---
+layout: layouts/base.njk
+permalink: /projects/
+title: Projects
+navSection: work
+description: "Projects by Lee Chun Yong: security, systems and applied cryptography, from coursework, internships and a home server."
+---
+<main class="wrap">
+  <header class="page-head">
+    <h1>Projects</h1>
+    <p>Coursework, internships and personal infrastructure, newest first. Mostly security, systems and applied cryptography, with some hardware along the way.</p>
+  </header>
+  <ol class="ledger">
+    {%- for project in collections.projects %}
+    <li>
+      <a class="ledger-row" href="{{ project.url }}">
+        <span class="ledger-no">{{ collections.projects | itemNo(project.url) }}</span>
+        <span class="ledger-main">
+          <span class="ledger-title">{{ project.data.title }}</span>
+          <span class="ledger-summary">{{ project.data.summary }}</span>
+          <span class="ledger-tags meta">{{ project.data.stack | join(" · ") }}</span>
+        </span>
+        <span class="ledger-context">{{ project.data.role }}</span>
+        <span class="ledger-date meta">{{ project.data.period }}</span>
+      </a>
+    </li>
+    {%- endfor %}
+  </ol>
+</main>

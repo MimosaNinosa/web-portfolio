@@ -1,0 +1,19 @@
+<figure class="exposure" role="group" aria-label="Where biometric data is readable in three system designs">
+  <div class="exposure-head" aria-hidden="true">
+    <span></span>
+    {%- for col in exposure.columns %}<span>{{ col }}</span>{% endfor %}
+  </div>
+  {%- for row in exposure.rows %}
+  <div class="exposure-row">
+    <div class="exposure-name">{{ row.name }}<small>{{ row.note }}</small></div>
+    {%- for cell in row.cells %}
+    <div class="cell {{ cell.kind }}" data-col="{{ exposure.columns[loop.index0] }}"><span class="visually-hidden">{{ exposure.columns[loop.index0] }}: </span>{{ cell.label }}</div>
+    {%- endfor %}
+  </div>
+  {%- endfor %}
+</figure>
+<div class="exposure-legend" aria-hidden="true">
+  <span><i class="enc"></i>ciphertext</span>
+  <span><i class="enclave"></i>plaintext, hardware-isolated</span>
+  <span><i class="plain"></i>plaintext, readable by the host</span>
+</div>

@@ -1,0 +1,22 @@
+---
+layout: layouts/base.njk
+navSection: blog
+ogType: article
+---
+<main class="wrap detail">
+  <a class="back-link" href="/blog/">← All writing</a>
+  <article>
+    <header class="detail-head">
+      <p class="meta">
+        <time datetime="{{ page.date | isoDate }}">{{ page.date | readableDate }}</time>
+        {%- if readTime %} &nbsp;/&nbsp; {{ readTime }}{% endif %}
+        {%- if topics %} &nbsp;/&nbsp; {{ topics | join(" · ") }}{% endif %}
+      </p>
+      <h1>{{ title }}</h1>
+    </header>
+
+    <div class="post-body prose">
+{{ content | safe }}
+    </div>
+  </article>
+</main>

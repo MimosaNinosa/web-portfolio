@@ -1,0 +1,130 @@
+---
+layout: layouts/base.njk
+permalink: /
+---
+{%- set p = site.profile -%}
+{%- set featured = collections.projects | withData("featured") -%}
+{%- set posts = collections.posts | reverse -%}
+<main>
+  <section class="intro wrap" id="intro">
+    <p class="intro-meta">
+      <span>{{ p.location }}</span>
+      <span>{{ p.study }}</span>
+      {%- if p.status %}<span class="status">{{ p.status }}</span>{% endif %}
+    </p>
+    <div>
+      <h1 class="intro-lede">{{ p.intro | emphasis | safe }}</h1>
+      <p class="intro-sub">{{ p.sub }}</p>
+      <p class="intro-links">
+        <a href="mailto:{{ p.email }}">Email</a>
+        <a href="{{ p.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="{{ p.resumeFile }}" target="_blank" rel="noopener">Résumé (.docx)</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="sheet wrap" id="research">
+    <h2 class="sheet-label">Research question</h2>
+    <div class="sheet-body">
+      {% include "exposure.njk" %}
+      <p class="exposure-caption">{{ site.research.caption }}</p>
+      <a class="more-link" href="/projects/{{ site.research.projectSlug }}/">Read the project write-up →</a>
+    </div>
+  </section>
+
+  <section class="sheet wrap" id="work">
+    <h2 class="sheet-label">Selected work</h2>
+    <div class="sheet-body">
+      <ol class="work-list">
+        {%- for project in featured %}
+        <li>
+          <a class="work-item" href="{{ project.url }}">
+            <span class="work-no">{{ collections.projects | itemNo(project.url) }}</span>
+            <span>
+              <span class="work-title">{{ project.data.title }}</span>
+              <span class="work-summary">{{ project.data.summary }}</span>
+              <span class="work-meta meta">{{ project.data.period }} · {{ project.data.stack.slice(0, 4) | join(", ") }}</span>
+            </span>
+            <span class="work-result">{{ project.data.result }}</span>
+          </a>
+        </li>
+        {%- endfor %}
+      </ol>
+      <a class="more-link" href="/projects/">All {{ collections.projects.length }} projects →</a>
+    </div>
+  </section>
+
+  {%- if posts.length %}
+  <section class="sheet wrap" id="writing">
+    <h2 class="sheet-label">Writing</h2>
+    <div class="sheet-body">
+      <ul class="post-list">
+        {%- for post in posts.slice(0, 5) %}
+        <li>
+          <time class="meta" datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time>
+          <span><a href="{{ post.url }}">{{ post.data.title }}</a></span>
+        </li>
+        {%- endfor %}
+      </ul>
+      <a class="more-link" href="/blog/">All writing →</a>
+    </div>
+  </section>
+  {%- endif %}
+
+  <section class="sheet wrap" id="about">
+    <h2 class="sheet-label">About</h2>
+    <div class="sheet-body">
+      {%- for para in site.about.paragraphs %}
+      <p>{{ para }}</p>
+      {%- endfor %}
+      <dl class="facts">
+        {%- for f in site.about.facts %}
+        <dt>{{ f.k }}</dt><dd>{{ f.v }}</dd>
+        {%- endfor %}
+      </dl>
+    </div>
+  </section>
+
+  {%- for block in [{ id: "experience", label: "Experience", entries: site.experience }, { id: "education", label: "Education", entries: site.education }] %}
+  <section class="sheet wrap" id="{{ block.id }}">
+    <h2 class="sheet-label">{{ block.label }}</h2>
+    <div class="sheet-body">
+      {%- for entry in block.entries %}
+      <div class="entry">
+        <span class="meta">{{ entry.date }}</span>
+        <h3 class="entry-role">{{ entry.role }}</h3>
+        <div class="entry-org">{{ entry.org }}</div>
+        {%- if entry.bullets %}
+        <ul>
+          {%- for b in entry.bullets %}<li>{{ b }}</li>{% endfor %}
+        </ul>
+        {%- endif %}
+      </div>
+      {%- endfor %}
+    </div>
+  </section>
+  {%- endfor %}
+
+  <section class="sheet wrap" id="toolbox">
+    <h2 class="sheet-label">Toolbox</h2>
+    <div class="sheet-body">
+      <dl class="toolbox">
+        {%- for group in site.skills %}
+        <dt>{{ group.group }}</dt><dd>{{ group.items | join(", ") }}</dd>
+        {%- endfor %}
+      </dl>
+    </div>
+  </section>
+
+  <section class="sheet wrap" id="contact">
+    <h2 class="sheet-label">Contact</h2>
+    <div class="sheet-body">
+      <p>Email is the quickest way to reach me.</p>
+      <a class="contact-email" href="mailto:{{ p.email }}">{{ p.email }}</a>
+      <p class="contact-rest">
+        <a href="{{ p.linkedin }}" target="_blank" rel="noopener">{{ p.linkedinLabel }}</a>
+        <a href="{{ p.resumeFile }}" target="_blank" rel="noopener">Résumé (.docx)</a>
+      </p>
+    </div>
+  </section>
+</main>

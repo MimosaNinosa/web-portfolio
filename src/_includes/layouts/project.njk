@@ -1,0 +1,50 @@
+---
+layout: layouts/base.njk
+navSection: work
+ogType: article
+---
+{%- set linkLabels = { repo: "Source", demo: "Live demo", report: "Team report (PDF)" } -%}
+<main class="wrap detail">
+  <a class="back-link" href="/projects/">← All projects</a>
+  <article>
+    <header class="detail-head">
+      <p class="meta">Project {{ collections.projects | itemNo(page.url) }}</p>
+      <h1>{{ title }}</h1>
+      <p class="standfirst">{{ summary }}</p>
+    </header>
+
+    <dl class="spec">
+      <dt>Period</dt><dd class="mono">{{ period }}</dd>
+      <dt>Context</dt><dd>{{ role }}</dd>
+      <dt>Stack</dt><dd class="mono">{{ stack | join(" · ") }}</dd>
+      {%- if result %}
+      <dt>Result</dt><dd class="mono result">{{ result }}</dd>
+      {%- endif %}
+      {%- if links %}
+      <dt>Links</dt>
+      <dd class="mono">
+        {%- for key, url in links %}{% if linkLabels[key] and url %}<a href="{{ url }}" target="_blank" rel="noopener">{{ linkLabels[key] }} →</a>{% endif %}{% endfor -%}
+      </dd>
+      {%- endif %}
+    </dl>
+
+    <div class="prose project-body">
+{{ content | safe }}
+    </div>
+
+    {%- if images and images.length %}
+    <div class="media-grid{% if images.length == 1 %} single{% endif %}">
+      {%- for item in images %}
+      <figure>
+        {%- if item.src | isVideo %}
+        <video src="{{ item.src }}" controls preload="metadata" playsinline>{{ item.alt }}</video>
+        {%- else %}
+        <a href="{{ item.src }}" target="_blank" rel="noopener"><img src="{{ item.src }}" alt="{{ item.alt }}" loading="lazy"></a>
+        {%- endif %}
+        {%- if item.caption %}<figcaption>{{ item.caption }}</figcaption>{% endif %}
+      </figure>
+      {%- endfor %}
+    </div>
+    {%- endif %}
+  </article>
+</main>
